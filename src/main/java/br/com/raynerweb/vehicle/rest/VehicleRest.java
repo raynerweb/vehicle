@@ -1,6 +1,7 @@
 package br.com.raynerweb.vehicle.rest;
 
 import br.com.raynerweb.vehicle.dto.VehicleDto;
+import br.com.raynerweb.vehicle.service.DriverService;
 import br.com.raynerweb.vehicle.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,9 @@ public class VehicleRest {
 
     @Autowired
     private VehicleService service;
+
+    @Autowired
+    private DriverService driverService;
 
     @GetMapping
     public List<VehicleDto> findAll() {
