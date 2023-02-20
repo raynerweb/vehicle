@@ -1,14 +1,17 @@
 package br.com.raynerweb.vehicle.mapper;
 
-import br.com.raynerweb.vehicle.dto.VehicleDto;
+import br.com.raynerweb.vehicle.dto.DriverDto;
+import br.com.raynerweb.vehicle.dto.TelemetryDto;
+import br.com.raynerweb.vehicle.dto.vehicle.RequestVehicleDto;
+import br.com.raynerweb.vehicle.dto.vehicle.ResponseVehicleDto;
 import br.com.raynerweb.vehicle.entity.VehicleEntity;
 import org.springframework.stereotype.Component;
 
 @Component
 public class VehicleMapper {
 
-    public VehicleDto entityToDto(VehicleEntity e) {
-        return new VehicleDto(
+    public ResponseVehicleDto entityToDto(VehicleEntity e) {
+        return new ResponseVehicleDto(
                 e.getId(),
                 e.getCustomerId(),
                 e.getTelemetryProfileId(),
@@ -19,14 +22,15 @@ public class VehicleMapper {
         );
     }
 
-    public VehicleEntity dtoToEntity(VehicleDto dto) {
+    public VehicleEntity dtoToEntity(RequestVehicleDto dto, TelemetryDto telemetryDto, DriverDto driverDto) {
         VehicleEntity entity = new VehicleEntity();
-        entity.setId(dto.id());
+        entity.setCustomerId(driverDto.customerId());
+        entity.setDriverId(driverDto.driverId());
+
+        entity.setTelemetryProfileId(telemetryDto.telemetryId());
+
         entity.setColor(dto.color());
-        entity.setCustomerId(dto.customerId());
-        entity.setDriverId(dto.driverId());
         entity.setNumPlate(dto.numPlate());
-        entity.setTelemetryProfileId(dto.telemetryProfileId());
         entity.setVin(dto.vin());
         return entity;
     }

@@ -1,6 +1,6 @@
-package br.com.raynerweb.vehicle.dto;
+package br.com.raynerweb.vehicle.dto.vehicle;
 
-public record VehicleDto(
+public record ResponseVehicleDto(
         Long id,
         String customerId,
         String telemetryProfileId,
