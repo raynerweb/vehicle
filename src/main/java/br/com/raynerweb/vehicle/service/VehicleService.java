@@ -5,6 +5,7 @@ import br.com.raynerweb.vehicle.dto.TelemetryDto;
 import br.com.raynerweb.vehicle.dto.vehicle.RequestVehicleDto;
 import br.com.raynerweb.vehicle.dto.vehicle.ResponseVehicleDto;
 import br.com.raynerweb.vehicle.entity.VehicleEntity;
+import br.com.raynerweb.vehicle.exception.NotFoundException;
 import br.com.raynerweb.vehicle.mapper.VehicleMapper;
 import br.com.raynerweb.vehicle.repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,12 @@ public class VehicleService {
 
     public List<ResponseVehicleDto> findAll() {
         return repository.findAll().stream().map(mapper::entityToDto).toList();
+    }
+
+    public ResponseVehicleDto findById(Long id) {
+        VehicleEntity entity = repository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Vehicle not found"));
+        return mapper.entityToDto(entity);
     }
 
     public ResponseVehicleDto save(RequestVehicleDto dto) {
